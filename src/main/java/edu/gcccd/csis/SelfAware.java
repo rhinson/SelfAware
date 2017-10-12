@@ -23,24 +23,36 @@ public class SelfAware implements Language {
     }
 
     public int occurrences(String sourceFile) throws Exception {
-
         final String s = new String(Files.readAllBytes(Paths.get(sourceFile)));
         int n = 0; // total occurrences of keywords counter
         int c = 0; // track total number of checks performed
 
         Language.sort(); // sort the array of Reserved Words
 
-        String[] checkString = s.split("\\W+"); // Split string into array of words
+        String checkString = s.replaceAll("\\W+", " ");
 
-        for (String eachWord: ReservedWords) {
-            for (String myString : checkString) {
-                c++;
-                if (eachWord.equals(myString)) {
-                    System.out.println(eachWord);
+            for (String eachWord:ReservedWords) {
+                int index = checkString.indexOf(eachWord);
+                while (index >= 0) {
+                    c++;
                     n++;
+                    index = checkString.indexOf(" " + eachWord + " ", index+eachWord.length());
                 }
             }
-        }
+
+// Old Code - Cumbersome
+//        String[] checkString = s.split("\\W+"); // Split string into array of words
+//
+//        for (String eachWord: ReservedWords) {
+//            for (String myString : checkString) {
+//                c++;
+//                if (eachWord.equals(myString)) {
+//                    // Uncomment to see each word found
+//                    // System.out.println(eachWord);
+//                    n++;
+//                }
+//            }
+//        }
 
         System.out.println("Number of string comparisons: " + c);
 
@@ -52,7 +64,6 @@ public class SelfAware implements Language {
                 StandardOpenOption.APPEND, StandardOpenOption.CREATE);
     }
 }
-
-// I've added abstract to get an extra keyword
-//Keyword occurrences: 38
-//Keyword occurrences: 39
+// Added abstract as an extra reservedWord
+//Keyword occurrences: 36
+//Keyword occurrences: 37

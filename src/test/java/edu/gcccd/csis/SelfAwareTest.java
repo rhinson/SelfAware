@@ -37,7 +37,7 @@ public class SelfAwareTest {
         }
     }
 
-    //@Test
+    @Test
     public void occurrencesTest1() throws Exception {
 
         try {
@@ -63,7 +63,7 @@ public class SelfAwareTest {
         assertEquals(54, numFound );
     }
 
-    //@Test
+    @Test
     public void occurrencesTest3() throws Exception {
 
         try {
